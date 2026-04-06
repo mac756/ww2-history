@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/causes/page": "/causes",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/players/page": "/players",
+  "/sources/page": "/sources",
+  "/technology/page": "/technology",
+  "/theaters/page": "/theaters",
+  "/timeline/page": "/timeline"
+}
