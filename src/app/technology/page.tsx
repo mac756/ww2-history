@@ -85,7 +85,7 @@ const techData: Record<string, TechCategory> = {
         },
         context: "The P-51 Mustang is widely considered the best fighter aircraft of WWII. Its laminar flow wing design and supercharger gave it excellent performance at high altitude. With drop tanks, Mustangs could escort bombers all the way to Berlin, achieving air superiority over Germany.",
         color: "#059669",
-        country: "USA",
+        countryCode: "🇺🇸",
       },
       {
         name: "B-17 Flying Fortress",
