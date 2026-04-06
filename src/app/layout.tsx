@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "WW2 History - World War II Educational Resource",
@@ -13,30 +14,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('ww2-theme') || 'dark';
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
-        <Navigation />
-        <main>{children}</main>
-        <footer style={{
-          background: 'var(--bg-secondary)',
-          borderTop: '1px solid rgba(201, 162, 39, 0.2)',
-          padding: '2rem',
-          textAlign: 'center',
-          color: 'var(--text-secondary)',
-          marginTop: '4rem'
-        }}>
-          <p style={{ fontSize: '0.9rem' }}>
-            © 2024 WW2 History Educational Resource. For educational purposes only.
-          </p>
-          <p style={{ fontSize: '0.8rem', marginTop: '0.5rem', color: 'var(--text-secondary)', opacity: 0.7 }}>
-            Sources include Antony Beevor, William L. Shirer, US National Archives, and academic historians.
-          </p>
-        </footer>
+        <ThemeProvider>
+          <Navigation />
+          <main>{children}</main>
+          <footer style={{
+            background: 'var(--bg-secondary)',
+            borderTop: '1px solid rgba(201, 162, 39, 0.2)',
+            padding: '2rem',
+            textAlign: 'center',
+            color: 'var(--text-secondary)',
+            marginTop: '4rem'
+          }}>
+            <p style={{ fontSize: '0.9rem' }}>
+              © 2024 WW2 History Educational Resource. For educational purposes only.
+            </p>
+            <p style={{ fontSize: '0.8rem', marginTop: '0.5rem', color: 'var(--text-secondary)', opacity: 0.7 }}>
+              Sources include Antony Beevor, William L. Shirer, US National Archives, and academic historians.
+            </p>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );

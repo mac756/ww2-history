@@ -1,9 +1,9 @@
 1:"$Sreact.fragment"
-2:I[11029,["/ww2-history/_next/static/chunks/16-o~og840.vt.js","/ww2-history/_next/static/chunks/0lnz-ekgf~7j_.js"],"ClientPageRoot"]
-3:I[55066,["/ww2-history/_next/static/chunks/16-o~og840.vt.js","/ww2-history/_next/static/chunks/0lnz-ekgf~7j_.js","/ww2-history/_next/static/chunks/0_fyfzk48p2sa.js","/ww2-history/_next/static/chunks/0od5q3ijkrsnc.js"],"default"]
-6:I[21236,["/ww2-history/_next/static/chunks/16-o~og840.vt.js","/ww2-history/_next/static/chunks/0lnz-ekgf~7j_.js"],"OutletBoundary"]
+2:I[47257,["/ww2-history/_next/static/chunks/0y-azz8mtt4wz.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientPageRoot"]
+3:I[17839,["/ww2-history/_next/static/chunks/0y-azz8mtt4wz.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js","/ww2-history/_next/static/chunks/0a_suui185jus.js","/ww2-history/_next/static/chunks/0b-14xb7oh3sm.js"],"default"]
+6:I[97367,["/ww2-history/_next/static/chunks/0y-azz8mtt4wz.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/ww2-history/_next/static/chunks/0_fyfzk48p2sa.js","async":true}],["$","script","script-1",{"src":"/ww2-history/_next/static/chunks/0od5q3ijkrsnc.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"bSqxyRU6-xvdPhAWdgxgC"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/ww2-history/_next/static/chunks/0a_suui185jus.js","async":true}],["$","script","script-1",{"src":"/ww2-history/_next/static/chunks/0b-14xb7oh3sm.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"02mxFOlSqAqf-wG47lA_0"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null

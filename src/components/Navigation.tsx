@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -25,9 +26,10 @@ export default function Navigation() {
       left: 0,
       right: 0,
       zIndex: 100,
-      background: "rgba(10, 10, 15, 0.95)",
+      background: "var(--nav-bg)",
       backdropFilter: "blur(10px)",
       borderBottom: "1px solid rgba(201, 162, 39, 0.2)",
+      transition: "background 0.3s ease",
     }}>
       <div style={{
         maxWidth: "1400px",
@@ -45,13 +47,17 @@ export default function Navigation() {
           color: "var(--accent-gold)",
           textDecoration: "none",
           letterSpacing: "0.1em",
-        }}>
+          transition: "all 0.3s ease",
+        }}
+        className="nav-logo"
+        >
           WW2 HISTORY
         </Link>
 
         {/* Desktop Nav */}
         <div style={{
           display: "flex",
+          alignItems: "center",
           gap: "2rem",
         }} className="desktop-nav">
           {navItems.map((item) => (
@@ -65,10 +71,11 @@ export default function Navigation() {
                 fontSize: "0.85rem",
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
-                transition: "color 0.3s ease",
+                transition: "all 0.3s ease",
                 position: "relative",
                 paddingBottom: "4px",
               }}
+              className="nav-link"
             >
               {item.label}
               {pathname === item.href && (
@@ -83,6 +90,7 @@ export default function Navigation() {
               )}
             </Link>
           ))}
+          <ThemeToggle />
         </div>
 
         {/* Mobile Menu Button */}
@@ -95,11 +103,12 @@ export default function Navigation() {
             color: "var(--accent-gold)",
             fontSize: "1.5rem",
             cursor: "pointer",
+            transition: "all 0.3s ease",
           }}
           className="mobile-menu-btn"
           aria-label="Toggle menu"
         >
-          ☰
+          {isOpen ? "✕" : "☰"}
         </button>
       </div>
 
@@ -125,11 +134,16 @@ export default function Navigation() {
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 padding: "0.5rem 0",
+                transition: "all 0.3s ease",
               }}
+              className="nav-link"
             >
               {item.label}
             </Link>
           ))}
+          <div style={{ marginTop: "0.5rem", borderTop: "1px solid rgba(201, 162, 39, 0.2)", paddingTop: "1rem" }}>
+            <ThemeToggle />
+          </div>
         </div>
       )}
 
