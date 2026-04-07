@@ -25,11 +25,11 @@ export default function Navigation() {
       top: 0,
       left: 0,
       right: 0,
-      zIndex: 100,
+      zIndex: 1000,
       background: "var(--nav-bg)",
-      backdropFilter: "blur(10px)",
-      borderBottom: "1px solid rgba(201, 162, 39, 0.2)",
-      transition: "background 0.3s ease",
+      backdropFilter: "blur(12px)",
+      borderBottom: "1px solid var(--border-color)",
+      transition: "background 0.4s ease, border-color 0.4s ease",
     }}>
       <div style={{
         maxWidth: "1400px",
@@ -41,24 +41,33 @@ export default function Navigation() {
         height: "70px",
       }}>
         <Link href="/" style={{
-          fontFamily: "'Cinzel', serif",
-          fontSize: "1.5rem",
+          fontFamily: "var(--font-display)",
+          fontSize: "1.4rem",
           fontWeight: 700,
           color: "var(--accent-gold)",
           textDecoration: "none",
-          letterSpacing: "0.1em",
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
           transition: "all 0.3s ease",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.5rem",
         }}
         className="nav-logo"
         >
-          WW2 HISTORY
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+          <span style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.3)" }}>WW2 HISTORY</span>
         </Link>
 
         {/* Desktop Nav */}
         <div style={{
           display: "flex",
           alignItems: "center",
-          gap: "2rem",
+          gap: "2.5rem",
         }} className="desktop-nav">
           {navItems.map((item) => (
             <Link
@@ -68,9 +77,9 @@ export default function Navigation() {
                 color: pathname === item.href ? "var(--accent-gold)" : "var(--text-secondary)",
                 textDecoration: "none",
                 fontWeight: 500,
-                fontSize: "0.85rem",
+                fontSize: "0.8rem",
                 textTransform: "uppercase",
-                letterSpacing: "0.1em",
+                letterSpacing: "0.12em",
                 transition: "all 0.3s ease",
                 position: "relative",
                 paddingBottom: "4px",
@@ -86,6 +95,7 @@ export default function Navigation() {
                   width: "100%",
                   height: "2px",
                   background: "var(--accent-gold)",
+                  boxShadow: "0 0 8px var(--hover-glow)",
                 }} />
               )}
             </Link>
@@ -99,10 +109,12 @@ export default function Navigation() {
           style={{
             display: "none",
             background: "none",
-            border: "none",
+            border: "1px solid var(--border-color)",
             color: "var(--accent-gold)",
             fontSize: "1.5rem",
             cursor: "pointer",
+            padding: "0.5rem",
+            borderRadius: "4px",
             transition: "all 0.3s ease",
           }}
           className="mobile-menu-btn"
@@ -116,10 +128,11 @@ export default function Navigation() {
       {isOpen && (
         <div style={{
           background: "var(--bg-secondary)",
-          padding: "1rem",
+          borderTop: "1px solid var(--border-color)",
+          padding: "1rem 2rem 1.5rem",
           display: "flex",
           flexDirection: "column",
-          gap: "1rem",
+          gap: "0.75rem",
         }} className="mobile-nav">
           {navItems.map((item) => (
             <Link
@@ -132,8 +145,9 @@ export default function Navigation() {
                 fontWeight: 500,
                 fontSize: "0.9rem",
                 textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                padding: "0.5rem 0",
+                letterSpacing: "0.12em",
+                padding: "0.75rem 0",
+                borderBottom: "1px solid var(--border-color)",
                 transition: "all 0.3s ease",
               }}
               className="nav-link"
@@ -141,20 +155,31 @@ export default function Navigation() {
               {item.label}
             </Link>
           ))}
-          <div style={{ marginTop: "0.5rem", borderTop: "1px solid rgba(201, 162, 39, 0.2)", paddingTop: "1rem" }}>
+          <div style={{ marginTop: "0.5rem" }}>
             <ThemeToggle />
           </div>
         </div>
       )}
 
       <style>{`
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .desktop-nav {
             display: none !important;
           }
           .mobile-menu-btn {
-            display: block !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
           }
+        }
+        
+        .nav-logo:hover {
+          color: var(--accent-brass);
+          transform: scale(1.02);
+        }
+        
+        nav a:hover:not(.nav-logo) {
+          color: var(--accent-gold) !important;
         }
       `}</style>
     </nav>

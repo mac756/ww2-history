@@ -1,17 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Player {
   name: string;
   title: string;
   nationality: string;
   period: string;
-  imageColor: string;
-  emoji: string;
   bio: string;
-  achievements: string[];
+  image: string;
+  imageCredit: string;
 }
 
 const players: Record<string, Player[]> = {
@@ -21,90 +23,72 @@ const players: Record<string, Player[]> = {
       title: "Supreme Commander Allied Expeditionary Force",
       nationality: "USA",
       period: "1943-1945",
-      imageColor: "#1e4d8c",
-      emoji: "🎖",
       bio: "Dwight D. Eisenhower was the Allied Supreme Commander in Europe, responsible for planning and executing Operation Overlord (D-Day). His diplomatic skills and military acumen made him the ideal leader for the diverse Allied coalition. After the war, he became the 34th President of the United States.",
-      achievements: [
-        "Planned and led Operation Overlord (D-Day)",
-        "Coordinated Allied forces across multiple nations",
-        "Accepted German surrender on behalf of the Allies",
-        "Later became 34th US President",
-      ],
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg/800px-Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
       name: "Winston Churchill",
       title: "Prime Minister of United Kingdom",
       nationality: "UK",
       period: "1940-1945",
-      imageColor: "#1e4d8c",
-      emoji: "🏛",
       bio: "Winston Churchill was one of the greatest wartime leaders in history. His defiant speeches and refusal to surrender inspired the British people during their darkest hours. Churchill maintained the Allied coalition and advocated for the opening of a second front in Europe.",
-      achievements: [
-        "Led Britain through the Battle of Britain",
-        "Maintained Allied unity through difficult years",
-        "Masterminded strategic partnerships with US and USSR",
-        "Provided oratory inspiration that sustained British morale",
-      ],
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Sir_Winston_Churchill_-_19086236948.jpg/800px-Sir_Winston_Churchill_-_19086236948.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
-      name: "Joseph Stalin",
-      title: "Premier of the Soviet Union",
-      nationality: "USSR",
-      period: "1941-1945",
-      imageColor: "#6b4423",
-      emoji: "☭",
-      bio: "Joseph Stalin was the Soviet leader who transformed the USSR into a war machine capable of defeating Nazi Germany. Despite his brutal regime, Stalin's leadership was crucial to the Eastern Front's outcome. The Soviet Union bore the brunt of fighting against Germany.",
-      achievements: [
-        "Directed Soviet war effort against Germany",
-        "Led counteroffensives at Stalingrad and Kursk",
-        "Managed massive industrial mobilization",
-        "Established Soviet dominance in Eastern Europe",
-      ],
+      name: "George S. Patton",
+      title: "General, Third Army Commander",
+      nationality: "USA",
+      period: "1943-1945",
+      bio: "George S. Patton was one of the most famous American commanders, known for his aggressive tactics and leadership of the Third Army across Europe. His daring push to relieve Bastogne during the Battle of the Bulge and his race to the Rhine were instrumental in defeating Germany.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/George_S._Pattton.jpg/800px-George_S._Pattton.jpg",
+      imageCredit: "U.S. Army / Wikimedia Commons",
+    },
+    {
+      name: "Bernard Montgomery",
+      title: "Field Marshal, 21st Army Group",
+      nationality: "UK",
+      period: "1943-1945",
+      bio: "Bernard Montgomery was the commander of Allied forces at El Alamein and the 21st Army Group during the Normandy campaign. Known for careful planning and sometimes cautious tactics, he nonetheless played a crucial role in the liberation of Europe.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Bernard_Montgomery.jpg/800px-Bernard_Montgomery.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
       name: "Franklin D. Roosevelt",
       title: "32nd President of the United States",
       nationality: "USA",
       period: "1933-1945",
-      imageColor: "#1e4d8c",
-      emoji: "🇺🇸",
       bio: "Franklin D. Roosevelt guided the United States through both the Great Depression and World War II. He designed the Lend-Lease program that supplied Allied nations and helped forge the Grand Alliance. His vision of a post-war peaceful world led to the United Nations.",
-      achievements: [
-        "Implemented Lend-Lease to support Allies",
-        "Established the United Nations",
-        "Led US through most of WWII",
-        "Designed post-war world order",
-      ],
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/FDR_1944_Color_Portrait.jpg/800px-FDR_1944_Color_Portrait.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
-      name: "Harry S. Truman",
-      title: "33rd President of the United States",
+      name: "Joseph Stalin",
+      title: "Premier of the Soviet Union",
+      nationality: "USSR",
+      period: "1941-1945",
+      bio: "Joseph Stalin was the Soviet leader who transformed the USSR into a war machine capable of defeating Nazi Germany. Despite his brutal regime, Stalin's leadership was crucial to the Eastern Front's outcome. The Soviet Union bore the brunt of fighting against Germany.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Stalin_Full_Image.jpg/800px-Stalin_Full_Image.jpg",
+      imageCredit: "Wikimedia Commons",
+    },
+    {
+      name: "Georgy Zhukov",
+      title: "Marshal of the Soviet Union",
+      nationality: "USSR",
+      period: "1941-1945",
+      bio: "Georgy Zhukov was the Soviet Union's most celebrated commander, known for his brutal determination and tactical brilliance. He led the defense of Moscow, commanded at Stalingrad, and orchestrated the massive counteroffensive that drove German forces back.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Marshal_Zhukov.jpg/800px-Marshal_Zhukov.jpg",
+      imageCredit: "Wikimedia Commons",
+    },
+    {
+      name: "Douglas MacArthur",
+      title: "General, Pacific Commander",
       nationality: "USA",
-      period: "1945",
-      imageColor: "#1e4d8c",
-      emoji: "🇺🇸",
-      bio: "Harry Truman became President upon Roosevelt's death in April 1945. He made the difficult decision to use atomic bombs against Japan, hastening the war's end. Truman also oversaw the final months of the European war and the beginning of the Cold War.",
-      achievements: [
-        "Authorized use of atomic weapons",
-        "Oversaw final Allied victories in Europe",
-        "Managed post-Roosevelt transition",
-        "Established Cold War policies",
-      ],
-    },
-    {
-      name: "Charles de Gaulle",
-      title: "Leader of Free French Forces",
-      nationality: "France",
-      period: "1940-1945",
-      imageColor: "#1e4d8c",
-      emoji: "🇫🇷",
-      bio: "Charles de Gaulle was the leader of Free France after the fall of Vichy France. He refused to accept defeat and rallied French resistance from London. After liberation, he became head of the French Provisional Government.",
-      achievements: [
-        "Refused to accept French surrender",
-        "Led Free French from exile in Britain",
-        "Rallied French Resistance movements",
-        "Liberated Paris in August 1944",
-      ],
+      period: "1941-1945",
+      bio: "Douglas MacArthur commanded Allied forces in the Pacific, overseeing campaigns from Australia to the Philippines to Japan. His 'I shall return' promise after Corregidor became one of the war's most famous declarations. He accepted Japan's surrender aboard USS Missouri.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/General_Douglas_MacArthur_signature.svg/800px-General_Douglas_MacArthur_signature.svg.png",
+      imageCredit: "Wikimedia Commons",
     },
   ],
   german: [
@@ -113,75 +97,45 @@ const players: Record<string, Player[]> = {
       title: "Führer of Nazi Germany",
       nationality: "Germany",
       period: "1933-1945",
-      imageColor: "#8b0000",
-      emoji: "🏴",
       bio: "Adolf Hitler was the totalitarian leader of Nazi Germany and the primary instigator of World War II. His racist ideology led to the Holocaust, the genocide of six million Jews and millions of others. Hitler's military decisions often proved disastrous, leading to Germany's defeat.",
-      achievements: [
-        "Established Nazi totalitarian state",
-        "Initiated Holocaust and genocide",
-        "Launched aggressive war across Europe",
-        "Committed suicide as Soviets entered Berlin",
-      ],
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Hitler_portrait_crop.jpg/800px-Hitler_portrait_crop.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
       name: "Erwin Rommel",
-      title: "Field Marshal (Desert Fox)",
+      title: "Field Marshal, Desert Fox",
       nationality: "Germany",
       period: "1941-1944",
-      imageColor: "#8b0000",
-      emoji: "🦊",
       bio: "Erwin Rommel was one of Germany's most celebrated commanders, known as the 'Desert Fox' for his leadership in North Africa. He was credited with nearly defeating the British 8th Army at El Alamein. Later, he was implicated in the July 20 plot against Hitler and forced to commit suicide.",
-      achievements: [
-        "Commanded Deutsches Afrika Korps",
-        "Achieved major victories at Gazala and Mersa el Brega",
-        "Nearly took Cairo before defeat at El Alamein",
-        "Involved in anti-Hitler conspiracy",
-      ],
-    },
-    {
-      name: "Friedrich Paulus",
-      title: "Field Marshal (Stalingrad)",
-      nationality: "Germany",
-      period: "1942-1943",
-      imageColor: "#8b0000",
-      emoji: "🎯",
-      bio: "Friedrich Paulus was the commander of the German 6th Army during the Battle of Stalingrad. His encirclement and eventual surrender marked the turning point of the war on the Eastern Front. He spent the rest of the war in Soviet captivity.",
-      achievements: [
-        "Led advance to Stalingrad",
-        "Commanded 6th Army during catastrophic siege",
-        "First German Field Marshal to surrender",
-        "Later became critic of Nazi regime",
-      ],
-    },
-    {
-      name: "Hermann Göring",
-      title: "Reichsmarschall (Luftwaffe Commander)",
-      nationality: "Germany",
-      period: "1933-1945",
-      imageColor: "#8b0000",
-      emoji: "✈️",
-      bio: "Hermann Göring was the commander of the Luftwaffe and Hitler's designated successor. However, his leadership of German air forces proved disastrous, particularly during the Battle of Britain and the failure to protect German cities from Allied bombing.",
-      achievements: [
-        "Built Luftwaffe from scratch",
-        "Controlled German aviation industry",
-        "Failed to achieve air superiority over Britain",
-        "Captured by Allies and tried at Nuremberg",
-      ],
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Erwin_Rommel.jpg/800px-Erwin_Rommel.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
       name: "Heinz Guderian",
-      title: "Generaloberst (Panzer Commander)",
+      title: "Generaloberst, Panzer Commander",
       nationality: "Germany",
       period: "1939-1945",
-      imageColor: "#8b0000",
-      emoji: "🔩",
       bio: "Heinz Guderian was one of the primary architects of blitzkrieg tactics. As a pioneer of tank warfare, he developed the concepts that allowed Germany to achieve stunning victories in 1939-1941. His analytical mind made him one of the few German generals to challenge Hitler.",
-      achievements: [
-        "Developed modern blitzkrieg tactics",
-        "Commanded XIX Army in Poland and France",
-        "Led Panzergruppe 2 in Barbarossa",
-        "Served as Inspector General of Panzer forces",
-      ],
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Bundesarchiv_Bild_183-C1248%2C_Heinz_Guderian.jpg/800px-Bundesarchiv_Bild_183-C1248%2C_Heinz_Guderian.jpg",
+      imageCredit: "Bundesarchiv / Wikimedia Commons",
+    },
+    {
+      name: "Erich von Manstein",
+      title: "Field Marshal",
+      nationality: "Germany",
+      period: "1939-1945",
+      bio: "Erich von Manstein was one of Germany's most brilliant strategists, devising the 'sickle cut' plan that defeated France in 1940. His operational genius on the Eastern Front was unmatched, but Germany's strategic situation was hopeless despite his efforts.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Erich_von_Manstein.jpg/800px-Erich_von_Manstein.jpg",
+      imageCredit: "Wikimedia Commons",
+    },
+    {
+      name: "Friedrich Paulus",
+      title: "Field Marshal",
+      nationality: "Germany",
+      period: "1942-1943",
+      bio: "Friedrich Paulus was the commander of the German 6th Army during the Battle of Stalingrad. His encirclement and eventual surrender marked the turning point of the war on the Eastern Front. He spent the rest of the war in Soviet captivity.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Bundesarchiv_Bild_183-L56302%2C_Friedrich_Paulus.jpg/800px-Bundesarchiv_Bild_183-L56302%2C_Friedrich_Paulus.jpg",
+      imageCredit: "Bundesarchiv / Wikimedia Commons",
     },
   ],
   japanese: [
@@ -190,297 +144,348 @@ const players: Record<string, Player[]> = {
       title: "Prime Minister of Japan",
       nationality: "Japan",
       period: "1941-1944",
-      imageColor: "#7c2d12",
-      emoji: "🇯🇵",
       bio: "Hideki Tojo was the Prime Minister of Japan during most of the war and a key architect of Japanese expansion. He authorized the attack on Pearl Harbor and oversaw Japan's military campaigns. After the war, he was tried and executed as a war criminal.",
-      achievements: [
-        "Authorized attack on Pearl Harbor",
-        "Directed Japanese war effort in Asia",
-        "Expanded Japanese empire across Pacific",
-        "Executed as war criminal in 1948",
-      ],
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hideki_Tojo.jpg/800px-Hideki_Tojo.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
-      name: "Admiral Isoroku Yamamoto",
-      title: "Commander-in-Chief, Combined Fleet",
+      name: "Isoroku Yamamoto",
+      title: "Admiral, Combined Fleet Commander",
       nationality: "Japan",
-      period: "1939-1943",
-      imageColor: "#7c2d12",
-      emoji: "⚓",
-      bio: "Admiral Isoroku Yamamoto was the mastermind behind the Pearl Harbor attack. However, he warned Japanese leaders that they could not win a prolonged war with the United States. He was killed in 1943 when US fighter's shot down his plane.",
-      achievements: [
-        "Planned Pearl Harbor attack",
-        "Commanded Japanese Combined Fleet",
-        "Warned of US industrial superiority",
-        "Killed in Operation Vengeance",
-      ],
-    },
-  ],
-  soviet: [
-    {
-      name: "Georgy Zhukov",
-      title: "Marshal of the Soviet Union",
-      nationality: "USSR",
-      period: "1941-1945",
-      imageColor: "#6b4423",
-      emoji: "🎖",
-      bio: "Georgy Zhukov was the most celebrated Soviet commander of WWII. He saved Moscow from German capture and led the counteroffensive at Stalingrad. His brutal but effective methods代价高昂 but successful, earning him the title Hero of the Soviet Union four times.",
-      achievements: [
-        "Defended Moscow in 1941",
-        "Planned counterattack at Stalingrad",
-        "Led operations at Kursk and Berlin",
-        "Accepted Berlin surrender",
-      ],
+      period: "1941-1943",
+      bio: "Isoroku Yamamoto was the commander of Japan's Combined Fleet and architect of the Pearl Harbor attack. He was a sophisticated strategist who warned that Japan could not win a prolonged war with the United States. He was killed when American fighters shot down his transport plane.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Admiral_Yamamoto.jpg/800px-Admiral_Yamamoto.jpg",
+      imageCredit: "Wikimedia Commons",
     },
     {
-      name: "Konstantin Rokossovsky",
-      title: "Marshal of the Soviet Union",
-      nationality: "USSR",
+      name: "Tomoyuki Yamashita",
+      title: "General, Tiger of Malaya",
+      nationality: "Japan",
+      period: "1941-1944",
+      bio: "Tomoyuki Yamashita conquered Malaya and Singapore in a stunning 70-day campaign that destroyed British prestige. Known as the 'Tiger of Malaya,' he later commanded forces in the Philippines. He was tried and executed after the war for atrocities.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Yamashita_Tomoyuki.jpg/800px-Yamashita_Tomoyuki.jpg",
+      imageCredit: "Wikimedia Commons",
+    },
+    {
+      name: "Chester Nimitz",
+      title: "Fleet Admiral, Pacific Fleet",
+      nationality: "USA",
       period: "1941-1945",
-      imageColor: "#6b4423",
-      emoji: "⚔",
-      bio: "Konstantin Rokossovsky was one of the finest Soviet commanders. He survived interrogation and near-execution during Stalin's purges to lead armored corps at Kursk and command fronts during the liberation of Poland and the final assault on Berlin.",
-      achievements: [
-        "Survived Stalin's purges to lead armies",
-        "Commanded Steppe Front at Kursk",
-        "Led operations in Operation Bagration",
-        "Commanded Polish People's Army",
-      ],
+      bio: "Chester Nimitz took command of the Pacific Fleet after Pearl Harbor and turned it into a winning force. He masterminded victories at Midway, Guadalcanal, and across the Pacific. His carrier task force tactics became the standard for modern naval warfare.",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Chester_Nimitz_1945.jpg/800px-Chester_Nimitz_1945.jpg",
+      imageCredit: "U.S. Navy / Wikimedia Commons",
     },
   ],
 };
 
+const getCountryColor = (nationality: string) => {
+  switch (nationality) {
+    case "USA": return "#1e4d8c";
+    case "UK": return "#1e4d8c";
+    case "France": return "#1e4d8c";
+    case "USSR": return "#6b4423";
+    case "Germany": return "#8b1a1a";
+    case "Japan": return "#7c2d12";
+    default: return "var(--accent-gold)";
+  }
+};
+
 export default function PlayersPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.utils.toArray(".player-card").forEach((card: any, i) => {
-        gsap.from(card, {
-          opacity: 0,
-          y: 30,
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-          },
-        });
+      gsap.from(".player-card", {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+        },
       });
     }, containerRef);
+
     return () => ctx.revert();
   }, []);
 
-  const categories = [
-    { key: "allied", label: "Allied Supreme Commanders", color: "#1e4d8c" },
-    { key: "german", label: "German Military Leaders", color: "#8b0000" },
-    { key: "japanese", label: "Japanese Commanders", color: "#7c2d12" },
-    { key: "soviet", label: "Soviet Commanders", color: "#6b4423" },
-  ];
+  const PlayerCard = ({ player }: { player: Player }) => (
+    <div 
+      className="player-card hover-lift"
+      style={{
+        background: "var(--card-bg)",
+        border: "1px solid var(--border-color)",
+        borderRadius: "12px",
+        overflow: "hidden",
+        transition: "all 0.4s ease",
+      }}
+    >
+      {/* Portrait Image */}
+      <div 
+        className="image-zoom"
+        style={{ 
+          cursor: "pointer",
+          position: "relative",
+          overflow: "hidden",
+        }}
+        onClick={() => setLightboxImage(player.image)}
+      >
+        <img
+          src={player.image}
+          alt={player.name}
+          className="player-image"
+          style={{
+            width: "100%",
+            height: "280px",
+            objectFit: "cover",
+            objectPosition: "top center",
+            display: "block",
+            filter: "sepia(0.15) contrast(1.05)",
+            transition: "filter 0.4s ease, transform 0.5s ease",
+          }}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+            target.parentElement!.style.background = `linear-gradient(135deg, ${getCountryColor(player.nationality)}33, ${getCountryColor(player.nationality)}66)`;
+          }}
+        />
+        
+        {/* Nationality Badge */}
+        <div style={{
+          position: "absolute",
+          top: "1rem",
+          right: "1rem",
+          background: getCountryColor(player.nationality),
+          color: "#fff",
+          padding: "0.35rem 0.75rem",
+          borderRadius: "4px",
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.7rem",
+          fontWeight: 600,
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+        }}>
+          {player.nationality}
+        </div>
+      </div>
+      
+      {/* Card Content */}
+      <div style={{ padding: "1.5rem" }}>
+        <h3 className="player-name" style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "1.4rem",
+          color: "var(--accent-gold)",
+          marginBottom: "0.25rem",
+        }}>
+          {player.name}
+        </h3>
+        
+        <p className="player-title" style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.75rem",
+          color: "var(--text-muted)",
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
+          marginBottom: "1rem",
+          lineHeight: 1.4,
+        }}>
+          {player.title}
+        </p>
+        
+        <p style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.7rem",
+          color: "var(--text-muted)",
+          marginBottom: "1rem",
+        }}>
+          {player.period}
+        </p>
+        
+        <p className="player-bio" style={{
+          color: "var(--text-secondary)",
+          fontSize: "0.9rem",
+          lineHeight: 1.7,
+        }}>
+          {player.bio}
+        </p>
+        
+        <p style={{
+          marginTop: "1rem",
+          fontSize: "0.65rem",
+          color: "var(--text-muted)",
+          fontFamily: "var(--font-mono)",
+        }}>
+          {player.imageCredit}
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <div style={{ paddingTop: "70px" }}>
       {/* Hero */}
-      <section
-        style={{
-          background: "linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%)",
-          padding: "6rem 2rem 4rem",
-          textAlign: "center",
-        }}
-      >
-        <h1 className="section-title" style={{ display: "block" }}>
+      <section style={{
+        background: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%)",
+        padding: "6rem 2rem 4rem",
+        textAlign: "center",
+        borderBottom: "1px solid var(--border-color)",
+      }}>
+        <h1 className="section-title" style={{ display: "block", marginBottom: "1rem" }}>
           Major Players
         </h1>
-        <p
-          style={{
-            color: "var(--text-secondary)",
-            maxWidth: "700px",
-            margin: "0 auto",
-            fontSize: "1.1rem",
-          }}
-        >
-          Discover the commanders, leaders, and strategists who shaped the outcome of World War II. From supreme commanders to battlefield generals.
+        <p style={{
+          color: "var(--text-secondary)",
+          maxWidth: "700px",
+          margin: "0 auto",
+          fontSize: "1.1rem",
+          lineHeight: 1.8,
+        }}>
+          The commanders, leaders, and strategists who shaped the outcome of the war — from Allied Supreme Commanders to Axis Field Marshals.
         </p>
       </section>
 
-      {/* Player Categories */}
-      <section
+      {/* Allied Leaders */}
+      <section 
         ref={containerRef}
         style={{
           maxWidth: "1400px",
           margin: "0 auto",
-          padding: "4rem 2rem",
+          padding: "5rem 2rem",
         }}
       >
-        {categories.map((category) => (
-          <div key={category.key} style={{ marginBottom: "5rem" }}>
-            <h2
-              style={{
-                color: category.color,
-                fontSize: "1.8rem",
-                marginBottom: "2rem",
-                fontFamily: "'Cinzel', serif",
-                paddingBottom: "0.5rem",
-                borderBottom: `2px solid ${category.color}`,
-                display: "inline-block",
-              }}
-            >
-              {category.label}
-            </h2>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
-                gap: "2rem",
-              }}
-            >
-              {players[category.key].map((player, index) => (
-                <div key={index} className="player-card">
-                  <div
-                    style={{
-                      height: "280px",
-                      background: `linear-gradient(135deg, ${player.imageColor}33, ${player.imageColor}11)`,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      position: "relative",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: "5rem",
-                        marginBottom: "1rem",
-                        filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3))",
-                      }}
-                    >
-                      {player.emoji}
-                    </div>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "1rem",
-                        right: "1rem",
-                        background: "rgba(0, 0, 0, 0.6)",
-                        padding: "0.25rem 0.75rem",
-                        borderRadius: "4px",
-                        fontSize: "0.8rem",
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      {player.nationality}
-                    </div>
-                    <div
-                      style={{
-                        background: "rgba(0, 0, 0, 0.6)",
-                        padding: "0.25rem 0.75rem",
-                        borderRadius: "4px",
-                        fontSize: "0.8rem",
-                        color: category.color,
-                      }}
-                    >
-                      {player.period}
-                    </div>
-                  </div>
-
-                  <div className="player-info">
-                    <h3 className="player-name">{player.name}</h3>
-                    <p className="player-title">{player.title}</p>
-                    <p className="player-bio" style={{ marginBottom: "1rem" }}>
-                      {player.bio}
-                    </p>
-                    <div
-                      style={{
-                        background: "var(--bg-tertiary)",
-                        padding: "1rem",
-                        borderRadius: "6px",
-                      }}
-                    >
-                      <h4
-                        style={{
-                          color: "var(--accent-gold)",
-                          fontSize: "0.9rem",
-                          marginBottom: "0.5rem",
-                        }}
-                      >
-                        Key Achievements
-                      </h4>
-                      <ul
-                        style={{
-                          listStyle: "none",
-                          padding: 0,
-                          margin: 0,
-                        }}
-                      >
-                        {player.achievements.map((achievement, i) => (
-                          <li
-                            key={i}
-                            style={{
-                              color: "var(--text-secondary)",
-                              fontSize: "0.85rem",
-                              padding: "0.25rem 0",
-                              paddingLeft: "1rem",
-                              position: "relative",
-                            }}
-                          >
-                            <span
-                              style={{
-                                position: "absolute",
-                                left: 0,
-                                color: category.color,
-                              }}
-                            >
-                              ▸
-                            </span>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
-
-      {/* Quote Section */}
-      <section
-        style={{
-          background: "var(--bg-secondary)",
-          padding: "4rem 2rem",
-          borderTop: "1px solid rgba(201, 162, 39, 0.2)",
-          textAlign: "center",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "800px",
-            margin: "0 auto",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "1.5rem",
-              fontStyle: "italic",
-              color: "var(--text-primary)",
-              lineHeight: 1.8,
-              marginBottom: "1.5rem",
-            }}
-          >
-            "In war, there are no winners, only survivors."
-          </p>
-          <p
-            style={{
-              color: "var(--accent-gold)",
-              fontWeight: 600,
-            }}
-          >
-            — Unknown Soldier
-          </p>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          marginBottom: "3rem",
+        }}>
+          <div style={{
+            width: "8px",
+            height: "40px",
+            background: "var(--allies-navy)",
+            borderRadius: "4px",
+          }} />
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "2rem",
+            color: "var(--allies-navy)",
+          }}>
+            Allied Commanders
+          </h2>
+        </div>
+        
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+          gap: "2rem",
+        }}>
+          {players.allied.map((player, i) => (
+            <PlayerCard key={i} player={player} />
+          ))}
         </div>
       </section>
+
+      {/* Axis Leaders */}
+      <section style={{
+        background: "var(--bg-secondary)",
+        padding: "5rem 2rem",
+        borderTop: "1px solid var(--border-color)",
+        borderBottom: "1px solid var(--border-color)",
+      }}>
+        <div style={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+        }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            marginBottom: "3rem",
+          }}>
+            <div style={{
+              width: "8px",
+              height: "40px",
+              background: "var(--axis-red)",
+              borderRadius: "4px",
+            }} />
+            <h2 style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "2rem",
+              color: "var(--axis-red)",
+            }}>
+              German Commanders
+            </h2>
+          </div>
+          
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: "2rem",
+          }}>
+            {players.german.map((player, i) => (
+              <PlayerCard key={i} player={player} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pacific Commanders */}
+      <section style={{
+        maxWidth: "1400px",
+        margin: "0 auto",
+        padding: "5rem 2rem",
+      }}>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          marginBottom: "3rem",
+        }}>
+          <div style={{
+            width: "8px",
+            height: "40px",
+            background: "#059669",
+            borderRadius: "4px",
+          }} />
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "2rem",
+            color: "#059669",
+          }}>
+            Pacific Theater
+          </h2>
+        </div>
+        
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+          gap: "2rem",
+        }}>
+          {players.japanese.map((player, i) => (
+            <PlayerCard key={i} player={player} />
+          ))}
+        </div>
+      </section>
+
+      {/* Lightbox */}
+      {lightboxImage && (
+        <div 
+          className="lightbox-overlay active"
+          onClick={() => setLightboxImage(null)}
+        >
+          <span className="lightbox-close" onClick={() => setLightboxImage(null)}>×</span>
+          <img 
+            src={lightboxImage} 
+            alt="Full size" 
+            className="lightbox-image"
+            onClick={(e) => e.stopPropagation()}
+            style={{ maxWidth: "70%", maxHeight: "85vh" }}
+          />
+        </div>
+      )}
     </div>
   );
 }

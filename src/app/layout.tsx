@@ -18,7 +18,8 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+        <link rel="icon" href="/favicon.ico" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -38,7 +39,7 @@ export default function RootLayout({
           <main>{children}</main>
           <footer style={{
             background: 'var(--bg-secondary)',
-            borderTop: '1px solid rgba(201, 162, 39, 0.2)',
+            borderTop: '1px solid rgba(184, 134, 20, 0.3)',
             padding: '2rem',
             textAlign: 'center',
             color: 'var(--text-secondary)',
@@ -49,6 +50,9 @@ export default function RootLayout({
             </p>
             <p style={{ fontSize: '0.8rem', marginTop: '0.5rem', color: 'var(--text-secondary)', opacity: 0.7 }}>
               Sources include Antony Beevor, William L. Shirer, US National Archives, and academic historians.
+            </p>
+            <p style={{ fontSize: '0.75rem', marginTop: '1rem', color: 'var(--accent-gold)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>
+              CHRIST IS LORD
             </p>
           </footer>
         </ThemeProvider>
