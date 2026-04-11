@@ -69,24 +69,18 @@ export default function TheatersPage() {
 
   // Map image URLs by year and theater from Wikimedia Commons
   const getMapImage = () => {
+    // Europe animated map - shows territorial changes over time
     if (selectedTheater === "europe") {
-      if (selectedYear <= 1940) return "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Western_Europe_1940.png/800px-Western_Europe_1940.png";
-      if (selectedYear <= 1942) return "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Western_Europe_1942.png/800px-Western_Europe_1942.png";
-      if (selectedYear <= 1944) return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Western_Europe_1944.png/800px-Western_Europe_1944.png";
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Western_Europe_1945.png/800px-Western_Europe_1945.png";
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Second_world_war_europe_animation_large_de.gif/600px-Second_world_war_europe_animation_large_de.gif";
     }
     if (selectedTheater === "eastern") {
-      if (selectedYear <= 1941) return "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Eastern_Front_1941.png/800px-Eastern_Front_1941.png";
-      if (selectedYear <= 1943) return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Eastern_Front_1943.png/800px-Eastern_Front_1943.png";
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Eastern_Front_1945.png/800px-Eastern_Front_1945.png";
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Second_world_war_europe_animation_large_de.gif/600px-Second_world_war_europe_animation_large_de.gif";
     }
     if (selectedTheater === "africa") {
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/North_Africa_1942.png/800px-North_Africa_1942.png";
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Bundesarchiv_Bild_101I-783-0109-11%2C_Nordafrika%2C_Panzer_III_in_Fahrt.jpg/800px-Bundesarchiv_Bild_101I-783-0109-11%2C_Nordafrika%2C_Panzer_III_in_Fahrt.jpg";
     }
     if (selectedTheater === "pacific") {
-      if (selectedYear <= 1942) return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Pacific_Theater_1942.png/800px-Pacific_Theater_1942.png";
-      if (selectedYear <= 1944) return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Pacific_Theater_1944.png/800px-Pacific_Theater_1944.png";
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Pacific_Theater_1945.png/800px-Pacific_Theater_1945.png";
+      return "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Second_world_war_asia_1937-1942_map_en6.png/800px-Second_world_war_asia_1937-1942_map_en6.png";
     }
     return null;
   };
@@ -242,7 +236,7 @@ export default function TheatersPage() {
         >
           {/* Map Image */}
           <img
-            src={getMapImage() || "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/World_War_II_allied_axis_territories_1940.png/1280px-World_War_II_allied_axis_territories_1940.png"}
+            src={getMapImage() || "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Second_world_war_europe_animation_large_de.gif/800px-Second_world_war_europe_animation_large_de.gif"}
             alt={`${currentTheater?.name} ${selectedYear}`}
             style={{
               width: "100%",

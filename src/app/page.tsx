@@ -129,13 +129,13 @@ export default function Home() {
     <div style={{ paddingTop: "70px" }}>
       {/* Hero Section */}
       <section className="hero" ref={heroRef} style={{ position: "relative", minHeight: "100vh" }}>
-        {/* Background Image - Iwo Jima Flag Raising */}
+        {/* Background Image - Soviet soldiers raising flag over Reichstag */}
         <div 
           className="hero-background"
           style={{
-            backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Iwo_Jima_flagRaising.jpg/1280px-Iwo_Jima_flagRaising.jpg')",
+            backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Raising_a_flag_over_the_Reichstag_-_Restoration.jpg/1280px-Raising_a_flag_over_the_Reichstag_-_Restoration.jpg')",
             backgroundSize: "cover",
-            backgroundPosition: "center 40%",
+            backgroundPosition: "center 30%",
           }}
         />
         

@@ -44,7 +44,7 @@ export default function Navigation() {
           fontFamily: "var(--font-display)",
           fontSize: "1.4rem",
           fontWeight: 700,
-          color: "var(--accent-gold)",
+          color: "#f5d742",
           textDecoration: "none",
           letterSpacing: "0.08em",
           textTransform: "uppercase",
@@ -52,15 +52,16 @@ export default function Navigation() {
           display: "flex",
           alignItems: "center",
           gap: "0.5rem",
+          textShadow: "0 0 10px rgba(245, 215, 66, 0.5), 2px 2px 4px rgba(0,0,0,0.8)",
         }}
         className="nav-logo"
         >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f5d742" strokeWidth="2">
             <path d="M12 2L2 7l10 5 10-5-10-5z" />
             <path d="M2 17l10 5 10-5" />
             <path d="M2 12l10 5 10-5" />
           </svg>
-          <span style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.3)" }}>WW2 HISTORY</span>
+          <span style={{ textShadow: "0 0 10px rgba(245, 215, 66, 0.5), 2px 2px 4px rgba(0,0,0,0.8)" }}>WW2 HISTORY</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -74,15 +75,16 @@ export default function Navigation() {
               key={item.href}
               href={item.href}
               style={{
-                color: pathname === item.href ? "var(--accent-gold)" : "var(--text-secondary)",
+                color: pathname === item.href ? "#f5d742" : "#c9b96e",
                 textDecoration: "none",
-                fontWeight: 500,
-                fontSize: "0.8rem",
+                fontWeight: 600,
+                fontSize: "0.85rem",
                 textTransform: "uppercase",
                 letterSpacing: "0.12em",
                 transition: "all 0.3s ease",
                 position: "relative",
                 paddingBottom: "4px",
+                textShadow: pathname === item.href ? "0 0 8px rgba(245, 215, 66, 0.6)" : "none",
               }}
               className="nav-link"
             >

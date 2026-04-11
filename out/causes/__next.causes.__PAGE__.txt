@@ -1,9 +1,9 @@
 1:"$Sreact.fragment"
-2:I[47257,["/ww2-history/_next/static/chunks/17imjo4he.fy4.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientPageRoot"]
-3:I[48912,["/ww2-history/_next/static/chunks/17imjo4he.fy4.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js","/ww2-history/_next/static/chunks/01.jtl.oyfznj.js","/ww2-history/_next/static/chunks/0b-14xb7oh3sm.js","/ww2-history/_next/static/chunks/0jwuwbsy8x5gc.js"],"default"]
-6:I[97367,["/ww2-history/_next/static/chunks/17imjo4he.fy4.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+2:I[47257,["/ww2-history/_next/static/chunks/0m4rmvz4s-zzt.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientPageRoot"]
+3:I[48912,["/ww2-history/_next/static/chunks/0m4rmvz4s-zzt.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js","/ww2-history/_next/static/chunks/01.jtl.oyfznj.js","/ww2-history/_next/static/chunks/0b-14xb7oh3sm.js","/ww2-history/_next/static/chunks/0jwuwbsy8x5gc.js"],"default"]
+6:I[97367,["/ww2-history/_next/static/chunks/0m4rmvz4s-zzt.js","/ww2-history/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/ww2-history/_next/static/chunks/01.jtl.oyfznj.js","async":true}],["$","script","script-1",{"src":"/ww2-history/_next/static/chunks/0b-14xb7oh3sm.js","async":true}],["$","script","script-2",{"src":"/ww2-history/_next/static/chunks/0jwuwbsy8x5gc.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"0OVofVqYnosfGYANL3YP_"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/ww2-history/_next/static/chunks/01.jtl.oyfznj.js","async":true}],["$","script","script-1",{"src":"/ww2-history/_next/static/chunks/0b-14xb7oh3sm.js","async":true}],["$","script","script-2",{"src":"/ww2-history/_next/static/chunks/0jwuwbsy8x5gc.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"ybykn9-zoHPHfTHeKXAkp"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
